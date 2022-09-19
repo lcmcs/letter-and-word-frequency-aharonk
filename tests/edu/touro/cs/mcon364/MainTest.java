@@ -11,9 +11,6 @@ class MainTest {
     @Test
     void wordCountTestEmpty() {
         assertEquals(0, TextStatistics.wordCount(""));
-        assertEquals(1, TextStatistics.wordCount("one"));
-        assertEquals(1, TextStatistics.wordCount("one "));
-        assertEquals(2, TextStatistics.wordCount(" one two"));
     }
 
     @Test
