@@ -16,8 +16,8 @@ class MainTest {
     @Test
     void wordCountTest() {
         assertEquals(1, TextStatistics.wordCount("one"));
-        assertEquals(1, TextStatistics.wordCount("one "));
         assertEquals(2, TextStatistics.wordCount("one two"));
+        assertEquals(2, TextStatistics.wordCount("one one"));
     }
 
     @Test
@@ -29,6 +29,11 @@ class MainTest {
     @Test
     void uniqueWordCountTest() {
         assertEquals(1, TextStatistics.uniqueWordCount("one one"));
+    }
+
+    @Test
+    void uniqueWordCountTestEmpty() {
+        assertEquals(0, TextStatistics.uniqueWordCount(""));
     }
 
     @Test
@@ -83,6 +88,7 @@ class MainTest {
     @Test
     void letterCountTestCase() {
         assertEquals(1, TextStatistics.letterCount("aA"));
+        assertEquals(2, TextStatistics.letterCount("aAC"));
     }
 
     @Test
@@ -94,6 +100,7 @@ class MainTest {
     @Test
     void letterCountTestCornerCases() {
         assertEquals(2, TextStatistics.letterCount(" aba"));
+        assertEquals(2, TextStatistics.letterCount("ab.a"));
         assertEquals(2, TextStatistics.letterCount("a A b "));
     }
 
@@ -118,6 +125,15 @@ class MainTest {
                 (!results.containsKey('a') && results.get('A') == 2);
         assert !results.containsKey('b') && !results.containsKey('B');
         assert !results.containsValue(0) && !results.containsValue(1) && !results.containsValue(3);
+    }
+
+    @Test
+    void letterStatsTestNonLetter() {
+        Map<Character, Integer> results = TextStatistics.letterStats("a. ");
+        assert (!results.containsKey('A') && results.get('a') == 1) ||
+                (!results.containsKey('a') && results.get('A') == 1);
+        assert !results.containsKey('.') && !results.containsKey(' ');
+        assert !results.containsValue(0) && !results.containsValue(2);
     }
 
     @Test
